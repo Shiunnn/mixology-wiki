@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>[中文酒名] [English Name] | Mixology Wiki</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <main class="recipe-page">
+      <nav class="top-nav" aria-label="頁面導航">
+        <a class="back-link" href="../index.html">← 返回首頁</a>
+      </nav>
+
+      <!-- 區塊 1：酒款名稱（中英文）與基酒標籤、酒感星等 -->
+      <section class="recipe-section" aria-labelledby="recipe-title">
+        <div class="recipe-meta-row">
+          <span class="spirit-badge">[基酒名稱，例如：琴酒 Gin]</span>
+          <span class="abv-rating" aria-label="酒感 [X] / 5 顆星">
+            <span>酒感</span>
+            <span class="star-rating">★★★☆☆</span>
+          </span>
+        </div>
+        <h1 id="recipe-title" class="recipe-title-zh">[中文酒名]</h1>
+        <p class="recipe-title-en">[English Name]</p>
+      </section>
+
+      <!-- 區塊 2：風味指標（甜度、酸度、酒感、苦度，1~5 分） -->
+      <section class="recipe-section" aria-labelledby="flavor-heading">
+        <h2 id="flavor-heading" class="section-heading">風味指標</h2>
+        <div class="flavor-grid">
+          <div class="flavor-item">
+            <div class="flavor-label-row">
+              <span class="flavor-name">甜度 Sweetness</span>
+              <span class="flavor-score">3 / 5</span>
+            </div>
+            <div class="flavor-meter" aria-label="甜度 3 分（滿分 5 分）">
+              <span class="flavor-pip filled"></span>
+              <span class="flavor-pip filled"></span>
+              <span class="flavor-pip filled"></span>
+              <span class="flavor-pip"></span>
+              <span class="flavor-pip"></span>
+            </div>
+          </div>
+
+          <div class="flavor-item">
+            <div class="flavor-label-row">
+              <span class="flavor-name">酸度 Sourness</span>
+              <span class="flavor-score">2 / 5</span>
+            </div>
+            <div class="flavor-meter" aria-label="酸度 2 分（滿分 5 分）">
+              <span class="flavor-pip filled"></span>
+              <span class="flavor-pip filled"></span>
+              <span class="flavor-pip"></span>
+              <span class="flavor-pip"></span>
+              <span class="flavor-pip"></span>
+            </div>
+          </div>
+
+          <div class="flavor-item">
+            <div class="flavor-label-row">
+              <span class="flavor-name">酒感 Strength</span>
+              <span class="flavor-score">4 / 5</span>
+            </div>
+            <div class="flavor-meter" aria-label="酒感 4 分（滿分 5 分）">
+              <span class="flavor-pip filled"></span>
+              <span class="flavor-pip filled"></span>
+              <span class="flavor-pip filled"></span>
+              <span class="flavor-pip filled"></span>
+              <span class="flavor-pip"></span>
+            </div>
+          </div>
+
+          <div class="flavor-item">
+            <div class="flavor-label-row">
+              <span class="flavor-name">苦度 Bitterness</span>
+              <span class="flavor-score">1 / 5</span>
+            </div>
+            <div class="flavor-meter" aria-label="苦度 1 分（滿分 5 分）">
+              <span class="flavor-pip filled"></span>
+              <span class="flavor-pip"></span>
+              <span class="flavor-pip"></span>
+              <span class="flavor-pip"></span>
+              <span class="flavor-pip"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 區塊 3：材料清單（統一使用 ml 或 dash 為單位） -->
+      <section class="recipe-section" aria-labelledby="ingredients-heading">
+        <h2 id="ingredients-heading" class="section-heading">材料清單</h2>
+        <ul class="ingredients-list">
+          <li class="ingredient-item">
+            <span class="ingredient-name">[基酒名稱]</span>
+            <span class="ingredient-amount">45 ml</span>
+          </li>
+          <li class="ingredient-item">
+            <span class="ingredient-name">[副材料 / 果汁 / 利口酒]</span>
+            <span class="ingredient-amount">15 ml</span>
+          </li>
+          <li class="ingredient-item">
+            <span class="ingredient-name">[苦精或微量調味]</span>
+            <span class="ingredient-amount">2 dash</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 區塊 4：調製步驟（有序清單，標明技法如 Shake/Stir 與杯型） -->
+      <section class="recipe-section" aria-labelledby="steps-heading">
+        <h2 id="steps-heading" class="section-heading">調製步驟</h2>
+        <div class="technique-bar">
+          <span class="technique-tag">技法：<strong>[Shake / Stir / Build]</strong></span>
+          <span class="technique-tag">杯型：<strong>[杯型名稱]</strong></span>
+        </div>
+        <ol class="steps-list">
+          <li>[預先冰鎮杯具或準備冰塊。]</li>
+          <li>[依序將材料倒入雪克杯或調酒杯中，加入冰塊。]</li>
+          <li>[使用對應技法（Shake / Stir）調製至適當溫度與稀釋度。]</li>
+          <li>[濾冰倒入杯中，放上裝飾物即完成。]</li>
+        </ol>
+      </section>
+
+      <!-- 區塊 5：調酒師筆記（冰塊選擇、裝飾物或風味細節） -->
+      <section class="recipe-section" aria-labelledby="notes-heading">
+        <h2 id="notes-heading" class="section-heading">調酒師筆記</h2>
+        <div class="bartender-notes">
+          <p><strong>冰塊選擇：</strong>[說明建議冰塊大小與融水控制。]</p>
+          <p><strong>裝飾與香氣：</strong>[說明裝飾物、擠皮噴香或杯緣處理。]</p>
+          <p><strong>風味細節：</strong>[補充基酒品牌風格差異或微調建議。]</p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
+

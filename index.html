@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mixology Wiki | 經典與現代調酒酒譜庫</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <main class="container">
+      <header class="site-header">
+        <span class="site-eyebrow">Mixology Wiki</span>
+        <h1 class="site-title">經典與現代調酒酒譜庫</h1>
+        <p class="site-subtitle">
+          記錄經典調酒與原創特調的精準配方、調製技法與調酒師風味筆記。
+        </p>
+      </header>
+
+      <section class="controls-panel" aria-label="酒譜篩選與搜尋">
+        <div class="search-row">
+          <input
+            id="search-input"
+            class="search-input"
+            type="search"
+            placeholder="搜尋酒名、基酒、材料或風味關鍵字..."
+            aria-label="搜尋調酒"
+          />
+          <span id="recipe-count" class="recipe-count" aria-live="polite"></span>
+        </div>
+
+        <div class="filter-bar" role="group" aria-label="基酒分類篩選">
+          <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">
+            全部
+          </button>
+          <button type="button" class="filter-btn" data-filter="gin" aria-pressed="false">
+            琴酒 Gin
+          </button>
+          <button type="button" class="filter-btn" data-filter="whiskey" aria-pressed="false">
+            威士忌 Whiskey
+          </button>
+          <button type="button" class="filter-btn" data-filter="rum" aria-pressed="false">
+            蘭姆酒 Rum
+          </button>
+          <button type="button" class="filter-btn" data-filter="vodka" aria-pressed="false">
+            伏特加 Vodka
+          </button>
+        </div>
+      </section>
+
+      <section id="recipe-grid" class="recipe-grid" aria-label="調酒酒譜目錄">
+        <!-- 新增調酒時，請複製下方卡片結構並設定正確的 href 與 data-base -->
+        <a
+          class="recipe-card"
+          href="./recipes/old-fashioned.html"
+          data-base="whiskey"
+          data-ingredients="波本威士忌 裸麥威士忌 bourbon rye 濃縮糖漿 安格仕苦精 柳橙苦精 柳橙皮"
+        >
+          <div>
+            <div class="card-top">
+              <span class="spirit-badge">威士忌 Whiskey</span>
+              <span class="star-rating" aria-label="酒感 4 / 5 顆星">★★★★☆</span>
+            </div>
+            <h2 class="card-title-zh">古典雞尾酒</h2>
+            <p class="card-title-en">Old Fashioned</p>
+          </div>
+          <p class="card-summary">
+            焦糖、木質辛香與柳橙精油交織，最純粹展現威士忌本味的經典 Stir 酒款。
+          </p>
+          <div class="card-footer">
+            <span>Stir · 古典杯</span>
+            <span class="card-link-hint">查看酒譜 →</span>
+          </div>
+        </a>
+
+        <a
+          class="recipe-card"
+          href="./recipes/gin-tonic.html"
+          data-base="gin"
+          data-ingredients="倫敦乾琴酒 通寧水 tonic water 萊姆"
+        >
+          <div>
+            <div class="card-top">
+              <span class="spirit-badge">琴酒 Gin</span>
+              <span class="star-rating" aria-label="酒感 2 / 5 顆星">★★☆☆☆</span>
+            </div>
+            <h2 class="card-title-zh">琴通寧</h2>
+            <p class="card-title-en">Gin &amp; Tonic</p>
+          </div>
+          <p class="card-summary">
+            杜松子草本清香結合通寧水奎寧微苦與細緻氣泡，最俐落爽口的經典 Build 酒款。
+          </p>
+          <div class="card-footer">
+            <span>Build · 高球杯</span>
+            <span class="card-link-hint">查看酒譜 →</span>
+          </div>
+        </a>
+
+        <a
+          class="recipe-card"
+          href="./recipes/negroni.html"
+          data-base="gin"
+          data-ingredients="倫敦乾琴酒 金巴利 campari 甜苦艾酒 vermouth rosso 柳橙皮"
+        >
+          <div>
+            <div class="card-top">
+              <span class="spirit-badge">琴酒 Gin</span>
+              <span class="star-rating" aria-label="酒感 4 / 5 顆星">★★★★☆</span>
+            </div>
+            <h2 class="card-title-zh">內格羅尼</h2>
+            <p class="card-title-en">Negroni</p>
+          </div>
+          <p class="card-summary">
+            琴酒、Campari 與甜苦艾酒 1:1:1 黃金比例，交織草本苦甜與柑橘精油香氣的經典開胃酒。
+          </p>
+          <div class="card-footer">
+            <span>Stir · 古典杯</span>
+            <span class="card-link-hint">查看酒譜 →</span>
+          </div>
+        </a>
+
+        <a
+          class="recipe-card"
+          href="./recipes/whiskey-sour.html"
+          data-base="whiskey"
+          data-ingredients="波本威士忌 bourbon 檸檬汁 糖漿 蛋白 egg white 安格仕苦精 柳橙皮"
+        >
+          <div>
+            <div class="card-top">
+              <span class="spirit-badge">威士忌 Whiskey</span>
+              <span class="star-rating" aria-label="酒感 3 / 5 顆星">★★★☆☆</span>
+            </div>
+            <h2 class="card-title-zh">威士忌酸酒</h2>
+            <p class="card-title-en">Whiskey Sour</p>
+          </div>
+          <p class="card-summary">
+            波本威士忌的香草焦糖底蘊結合現榨檸檬酸甜，搭配蛋白泡沫與苦精香氣的經典酸酒。
+          </p>
+          <div class="card-footer">
+            <span>Shake · 古典杯 / 高腳杯</span>
+            <span class="card-link-hint">查看酒譜 →</span>
+          </div>
+        </a>
+
+        <a
+          class="recipe-card"
+          href="./recipes/mojito.html"
+          data-base="rum"
+          data-ingredients="白色蘭姆酒 white rum 萊姆汁 糖漿 蘇打水 soda water 薄荷葉"
+        >
+          <div>
+            <div class="card-top">
+              <span class="spirit-badge">蘭姆酒 Rum</span>
+              <span class="star-rating" aria-label="酒感 2 / 5 顆星">★★☆☆☆</span>
+            </div>
+            <h2 class="card-title-zh">莫希托</h2>
+            <p class="card-title-en">Mojito</p>
+          </div>
+          <p class="card-summary">
+            白色蘭姆酒融合新鮮薄荷清香、萊姆酸爽與細緻蘇打氣泡，夏日感十足的經典高球。
+          </p>
+          <div class="card-footer">
+            <span>Build · 高球杯</span>
+            <span class="card-link-hint">查看酒譜 →</span>
+          </div>
+        </a>
+
+        <a
+          class="recipe-card"
+          href="./recipes/daiquiri.html"
+          data-base="rum"
+          data-ingredients="白色蘭姆酒 white rum 萊姆汁 糖漿"
+        >
+          <div>
+            <div class="card-top">
+              <span class="spirit-badge">蘭姆酒 Rum</span>
+              <span class="star-rating" aria-label="酒感 3 / 5 顆星">★★★☆☆</span>
+            </div>
+            <h2 class="card-title-zh">戴綺麗</h2>
+            <p class="card-title-en">Daiquiri</p>
+          </div>
+          <p class="card-summary">
+            白色蘭姆酒、現榨萊姆汁與糖漿純粹搖盪，極致展現酸甜張力與俐落酒體的經典酸酒。
+          </p>
+          <div class="card-footer">
+            <span>Shake · 寬口高腳杯</span>
+            <span class="card-link-hint">查看酒譜 →</span>
+          </div>
+        </a>
+
+        <a
+          class="recipe-card"
+          href="./recipes/moscow-mule.html"
+          data-base="vodka"
+          data-ingredients="伏特加 vodka 萊姆汁 薑汁啤酒 ginger beer 薄荷葉"
+        >
+          <div>
+            <div class="card-top">
+              <span class="spirit-badge">伏特加 Vodka</span>
+              <span class="star-rating" aria-label="酒感 2 / 5 顆星">★★☆☆☆</span>
+            </div>
+            <h2 class="card-title-zh">莫斯科騾子</h2>
+            <p class="card-title-en">Moscow Mule</p>
+          </div>
+          <p class="card-summary">
+            伏特加搭配鮮榨萊姆汁與辛辣薑汁啤酒，盛裝於冰涼銅杯中的暢快氣泡經典。
+          </p>
+          <div class="card-footer">
+            <span>Build · 銅杯</span>
+            <span class="card-link-hint">查看酒譜 →</span>
+          </div>
+        </a>
+      </section>
+
+      <div id="empty-state" class="empty-state is-hidden">
+        找不到符合條件的調酒，試著切換其他基酒分類或清除搜尋關鍵字。
+      </div>
+
+      <section class="recipe-section technique-guide-section" aria-labelledby="technique-guide-heading">
+        <div class="technique-guide-header">
+          <h2 id="technique-guide-heading" class="section-heading">四大基礎調酒技法指南</h2>
+          <p class="technique-guide-subtitle">
+            依酒體濃淡、是否含果汁或氣泡選擇對應技法，精準控制降溫、融水與口感層次。
+          </p>
+        </div>
+
+        <div class="technique-guide-grid">
+          <article class="technique-card">
+            <div class="technique-card-top">
+              <h3 class="technique-card-title">搖盪 Shake</h3>
+              <span class="spirit-badge">Shake</span>
+            </div>
+            <p class="technique-card-desc">
+              適用含果汁、糖漿、蛋白或乳製品的酒款，藉由冰塊撞擊快速降溫、均勻乳化並帶入細緻空氣感。
+            </p>
+            <p class="technique-card-examples">代表酒款：Whiskey Sour、Daiquiri</p>
+          </article>
+
+          <article class="technique-card">
+            <div class="technique-card-top">
+              <h3 class="technique-card-title">攪拌 Stir</h3>
+              <span class="spirit-badge">Stir</span>
+            </div>
+            <p class="technique-card-desc">
+              適用純烈酒與利口酒組合，以吧叉匙沿調酒杯壁順暢攪拌，維持酒液澄澈透亮與絲滑厚實酒體。
+            </p>
+            <p class="technique-card-examples">代表酒款：Old Fashioned、Negroni</p>
+          </article>
+
+          <article class="technique-card">
+            <div class="technique-card-top">
+              <h3 class="technique-card-title">直調 Build</h3>
+              <span class="spirit-badge">Build</span>
+            </div>
+            <p class="technique-card-desc">
+              直接於飲用杯中加入冰塊與材料，常見搭配通寧水、蘇打水或薑汁啤酒，最大程度保留清爽氣泡感。
+            </p>
+            <p class="technique-card-examples">代表酒款：Gin &amp; Tonic、Mojito、Moscow Mule</p>
+          </article>
+
+          <article class="technique-card">
+            <div class="technique-card-top">
+              <h3 class="technique-card-title">滾動 Rolling</h3>
+              <span class="spirit-badge">Rolling</span>
+            </div>
+            <p class="technique-card-desc">
+              在兩個雪克杯或調酒杯之間來回傾倒酒液，能柔和混勻濃稠果汁與辛香料，同時避免過度起泡或稀釋。
+            </p>
+            <p class="technique-card-examples">代表酒款：Bloody Mary</p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
+
