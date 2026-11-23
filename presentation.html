@@ -1,0 +1,1958 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>經典調酒工藝教學簡報 | Mixology Wiki</title>
+    <style>
+      :root {
+        --bg-primary: #0f172a;
+        --bg-secondary: #1e293b;
+        --bg-card: rgba(30, 41, 59, 0.78);
+        --bg-card-hover: rgba(30, 41, 59, 0.96);
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --accent: #f59e0b;
+        --accent-hover: #fbbf24;
+        --accent-soft: rgba(245, 158, 11, 0.14);
+        --border: rgba(148, 163, 184, 0.18);
+        --border-accent: rgba(245, 158, 11, 0.45);
+        --radius-lg: 16px;
+        --radius-md: 12px;
+        --radius-sm: 8px;
+        --shadow-card: 0 12px 30px rgba(2, 6, 23, 0.45);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        color-scheme: dark;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        font-family: "Segoe UI", "PingFang TC", "Microsoft JhengHei", system-ui, -apple-system, sans-serif;
+        background-color: var(--bg-primary);
+        background-image:
+          radial-gradient(circle at 14% 12%, rgba(245, 158, 11, 0.09), transparent 40%),
+          radial-gradient(circle at 86% 22%, rgba(51, 65, 85, 0.38), transparent 46%);
+        color: var(--text-primary);
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Top Reading Progress Bar */
+      .progress-track {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: rgba(148, 163, 184, 0.16);
+        z-index: 40;
+      }
+
+      .progress-fill {
+        height: 100%;
+        width: 11.11%;
+        background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+        box-shadow: 0 0 12px rgba(245, 158, 11, 0.55);
+        transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      /* Top Floating Header */
+      .deck-topbar {
+        position: fixed;
+        top: 0.72rem;
+        left: 1.5rem;
+        right: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        z-index: 30;
+        pointer-events: none;
+      }
+
+      .deck-topbar > * {
+        pointer-events: auto;
+      }
+
+      .deck-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.34rem 0.88rem;
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        color: var(--accent);
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        backdrop-filter: blur(10px);
+      }
+
+      .deck-top-actions {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+      }
+
+      .icon-pill-btn {
+        appearance: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.34rem 0.8rem;
+        font-size: 0.76rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        backdrop-filter: blur(10px);
+        transition: border-color 0.2s ease, color 0.2s ease;
+      }
+
+      .icon-pill-btn:hover {
+        color: var(--accent);
+        border-color: var(--border-accent);
+      }
+
+      /* Fullscreen Slides Viewport */
+      .slides-viewport {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(3.1rem, 5.2vh, 3.9rem) clamp(1.25rem, 3vw, 2.5rem) clamp(4.75rem, 8.6vh, 5.4rem);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(12px);
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+      }
+
+      .slide.is-active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        z-index: 2;
+      }
+
+      .slide-inner {
+        width: min(1100px, 100%);
+        max-height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: clamp(0.65rem, 1.45vh, 1.15rem);
+      }
+
+      .slide-header {
+        display: flex;
+        flex-direction: column;
+        gap: 0.28rem;
+      }
+
+      .slide-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        width: fit-content;
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .slide-title {
+        margin: 0;
+        font-size: clamp(1.38rem, 2.55vw, 2.1rem);
+        font-weight: 700;
+        line-height: 1.22;
+        color: var(--text-primary);
+      }
+
+      .slide-lead {
+        margin: 0;
+        font-size: clamp(0.88rem, 1.15vw, 1rem);
+        color: var(--text-secondary);
+        max-width: 860px;
+      }
+
+      /* Shared Badges & Pills */
+      .spirit-badge {
+        display: inline-flex;
+        align-items: center;
+        width: fit-content;
+        padding: 0.2rem 0.65rem;
+        font-size: 0.74rem;
+        font-weight: 600;
+        color: var(--accent);
+        background: var(--accent-soft);
+        border: 1px solid var(--border-accent);
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+
+      .spec-pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.2rem 0.58rem;
+        font-size: 0.76rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        background: rgba(15, 23, 42, 0.74);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+      }
+
+      .spec-pill strong {
+        color: var(--accent);
+        margin-left: 0.25rem;
+      }
+
+      /* Grids & Glass Cards */
+      .deck-grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: clamp(0.7rem, 1.4vw, 1.05rem);
+      }
+
+      .deck-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: clamp(0.7rem, 1.3vw, 1rem);
+      }
+
+      .deck-grid-4 {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: clamp(0.65rem, 1.1vw, 0.9rem);
+      }
+
+      .deck-card {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: clamp(0.82rem, 1.45vh, 1.15rem) clamp(0.92rem, 1.3vw, 1.2rem);
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        backdrop-filter: blur(10px);
+      }
+
+      .deck-card-accent {
+        border-color: var(--border-accent);
+        background: linear-gradient(160deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.86));
+      }
+
+      .deck-card-title {
+        margin: 0;
+        font-size: clamp(0.95rem, 1.25vw, 1.08rem);
+        font-weight: 700;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.45rem;
+      }
+
+      .deck-card-text {
+        margin: 0;
+        font-size: clamp(0.8rem, 1vw, 0.88rem);
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+
+      .deck-card-text strong {
+        color: var(--text-primary);
+      }
+
+      /* P1 Cover Layout */
+      .cover-hero {
+        display: grid;
+        grid-template-columns: 1.45fr 1fr;
+        gap: clamp(1rem, 2.2vw, 2rem);
+        align-items: center;
+        padding: clamp(1.2rem, 2.8vh, 2.1rem) clamp(1.25rem, 2.5vw, 2.2rem);
+        background: linear-gradient(145deg, rgba(30, 41, 59, 0.86), rgba(15, 23, 42, 0.9));
+        border: 1px solid var(--border-accent);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        backdrop-filter: blur(12px);
+      }
+
+      .cover-title {
+        margin: 0.25rem 0 0.55rem;
+        font-size: clamp(1.85rem, 3.6vw, 2.8rem);
+        font-weight: 800;
+        line-height: 1.18;
+        color: var(--text-primary);
+      }
+
+      .cover-title span {
+        color: var(--accent);
+      }
+
+      .cover-subtitle {
+        margin: 0 0 1rem;
+        font-size: clamp(0.92rem, 1.2vw, 1.05rem);
+        color: var(--text-secondary);
+        max-width: 560px;
+      }
+
+      .cover-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+        margin-bottom: 1rem;
+      }
+
+      .cover-svg-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .cover-svg {
+        width: 100%;
+        max-width: 290px;
+        max-height: clamp(190px, 32vh, 270px);
+        height: auto;
+      }
+
+      .cover-cta-hint {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.34rem 0.85rem;
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        background: rgba(15, 23, 42, 0.72);
+        border: 1px dashed var(--border-accent);
+        border-radius: 999px;
+      }
+
+      .cover-cta-hint strong {
+        color: var(--accent);
+      }
+
+      /* P2 Learning Map Connector */
+      .map-step-num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 800;
+        color: #0f172a;
+        background: var(--accent);
+        flex-shrink: 0;
+      }
+
+      .scaffold-banner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+        padding: 0.65rem 1rem;
+        background: rgba(15, 23, 42, 0.68);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        font-size: 0.84rem;
+        color: var(--text-secondary);
+      }
+
+      .scaffold-banner strong {
+        color: var(--text-primary);
+      }
+
+      .scaffold-arrow {
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      /* P4 Technique SVG + Physics Bars */
+      .tech-svg-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.35rem 0;
+      }
+
+      .tech-svg {
+        width: 84px;
+        max-height: clamp(58px, 10vh, 78px);
+        height: auto;
+      }
+
+      .physics-bars {
+        display: flex;
+        flex-direction: column;
+        gap: 0.38rem;
+        margin-top: auto;
+        padding-top: 0.45rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .physics-row {
+        display: grid;
+        grid-template-columns: 74px 1fr 38px;
+        align-items: center;
+        gap: 0.45rem;
+        font-size: 0.76rem;
+        color: var(--text-secondary);
+      }
+
+      .physics-track {
+        height: 7px;
+        border-radius: 999px;
+        background: rgba(148, 163, 184, 0.2);
+        overflow: hidden;
+      }
+
+      .physics-fill {
+        height: 100%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+      }
+
+      .physics-val {
+        text-align: right;
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      /* P5 & P6 Glass Cutaway SVGs */
+      .ratio-card-body {
+        display: grid;
+        grid-template-columns: 124px 1fr;
+        gap: 0.85rem;
+        align-items: center;
+      }
+
+      .cup-svg {
+        width: 100%;
+        max-height: clamp(145px, 26vh, 210px);
+        height: auto;
+      }
+
+      .cup-svg-compact {
+        width: 96px;
+        max-height: clamp(118px, 20vh, 155px);
+        height: auto;
+        flex-shrink: 0;
+      }
+
+      .ratio-legend {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.45rem;
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        padding: 0.24rem 0.52rem;
+        background: rgba(15, 23, 42, 0.58);
+        border-radius: 6px;
+      }
+
+      .legend-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: var(--text-primary);
+      }
+
+      .legend-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 2px;
+        flex-shrink: 0;
+      }
+
+      .legend-ml {
+        color: var(--accent);
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .p6-split {
+        display: grid;
+        grid-template-columns: 1fr 1.28fr;
+        gap: 0.9rem;
+        align-items: stretch;
+      }
+
+      .p6-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+        padding: 0.82rem 0.95rem;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        backdrop-filter: blur(10px);
+      }
+
+      .p6-group-title {
+        margin: 0;
+        font-size: 0.92rem;
+        font-weight: 700;
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .p6-mini-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+        flex: 1;
+        justify-content: space-evenly;
+      }
+
+      .p6-mini-row {
+        display: flex;
+        align-items: center;
+        gap: 0.72rem;
+        padding: 0.48rem 0.62rem;
+        background: rgba(15, 23, 42, 0.56);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+      }
+
+      .p6-mini-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        min-width: 0;
+        flex: 1;
+      }
+
+      .p6-mini-name {
+        font-size: 0.86rem;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .p6-mini-note {
+        font-size: 0.76rem;
+        color: var(--text-secondary);
+        line-height: 1.4;
+      }
+
+      /* P7 Do vs. Don't */
+      .compare-card-dont {
+        border-color: rgba(248, 113, 113, 0.35);
+      }
+
+      .compare-card-do {
+        border-color: rgba(74, 222, 128, 0.38);
+      }
+
+      .compare-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+      }
+
+      .compare-item {
+        padding: 0.56rem 0.75rem;
+        background: rgba(15, 23, 42, 0.62);
+        border-radius: var(--radius-sm);
+        border-left: 3px solid transparent;
+        font-size: 0.81rem;
+        color: var(--text-secondary);
+        line-height: 1.45;
+      }
+
+      .compare-item strong {
+        display: block;
+        margin-bottom: 0.12rem;
+        color: var(--text-primary);
+      }
+
+      .compare-card-dont .compare-item {
+        border-left-color: #f87171;
+      }
+
+      .compare-card-do .compare-item {
+        border-left-color: #4ade80;
+      }
+
+      /* P8 Decision Tree Flowchart SVG */
+      .flowchart-panel {
+        padding: 0.8rem 1rem;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .flowchart-svg {
+        width: 100%;
+        max-height: clamp(275px, 50vh, 410px);
+        height: auto;
+      }
+
+      /* P9 Interactive Quiz */
+      .quiz-status-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      .quiz-score-badge {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--accent);
+        background: var(--accent-soft);
+        border: 1px solid var(--border-accent);
+        border-radius: 999px;
+        padding: 0.24rem 0.8rem;
+      }
+
+      .quiz-reset-btn {
+        appearance: none;
+        cursor: pointer;
+        padding: 0.26rem 0.78rem;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        transition: border-color 0.2s ease, color 0.2s ease;
+      }
+
+      .quiz-reset-btn:hover {
+        color: var(--text-primary);
+        border-color: var(--border-accent);
+      }
+
+      .quiz-card {
+        display: flex;
+        flex-direction: column;
+        gap: 0.52rem;
+        padding: 0.9rem 1rem;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        backdrop-filter: blur(10px);
+      }
+
+      .quiz-q {
+        margin: 0;
+        font-size: 0.87rem;
+        font-weight: 700;
+        line-height: 1.42;
+        color: var(--text-primary);
+      }
+
+      .quiz-options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.38rem;
+      }
+
+      .quiz-option {
+        appearance: none;
+        cursor: pointer;
+        text-align: left;
+        padding: 0.44rem 0.66rem;
+        font-size: 0.8rem;
+        line-height: 1.38;
+        color: var(--text-secondary);
+        background: rgba(15, 23, 42, 0.74);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        transition: all 0.18s ease;
+      }
+
+      .quiz-option:hover:not(:disabled) {
+        color: var(--text-primary);
+        border-color: var(--border-accent);
+      }
+
+      .quiz-option:disabled {
+        cursor: default;
+      }
+
+      .quiz-option.is-correct {
+        color: #dcfce7;
+        background: rgba(22, 163, 74, 0.25);
+        border-color: rgba(74, 222, 128, 0.68);
+        font-weight: 600;
+      }
+
+      .quiz-option.is-wrong {
+        color: #fee2e2;
+        background: rgba(220, 38, 38, 0.22);
+        border-color: rgba(248, 113, 113, 0.68);
+      }
+
+      .quiz-feedback {
+        margin-top: auto;
+        padding: 0.5rem 0.66rem;
+        font-size: 0.77rem;
+        line-height: 1.42;
+        color: var(--text-secondary);
+        background: rgba(15, 23, 42, 0.62);
+        border-left: 3px solid var(--border);
+        border-radius: 6px;
+        min-height: 66px;
+      }
+
+      .quiz-feedback.correct {
+        border-left-color: #4ade80;
+        color: #e2e8f0;
+      }
+
+      .quiz-feedback.wrong {
+        border-left-color: #f87171;
+        color: #e2e8f0;
+      }
+
+      /* Granular Wiki Source Tag (Bottom-Right) */
+      .wiki-source-tag {
+        position: absolute;
+        right: 1.5rem;
+        bottom: 3.72rem;
+        max-width: calc(100vw - 3rem);
+        padding: 0.28rem 0.82rem;
+        font-size: 0.73rem;
+        color: var(--text-secondary);
+        background: rgba(15, 23, 42, 0.86);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        backdrop-filter: blur(10px);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        z-index: 5;
+      }
+
+      .wiki-source-tag strong {
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      /* Bottom Floating Controls Bar */
+      .deck-controls {
+        position: fixed;
+        left: 50%;
+        bottom: 0.78rem;
+        transform: translateX(-50%);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.7rem;
+        padding: 0.38rem 0.68rem;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        box-shadow: var(--shadow-card);
+        backdrop-filter: blur(12px);
+        z-index: 30;
+      }
+
+      .nav-btn {
+        appearance: none;
+        cursor: pointer;
+        padding: 0.4rem 0.92rem;
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        background: rgba(15, 23, 42, 0.78);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        transition: all 0.2s ease;
+      }
+
+      .nav-btn:hover:not(:disabled) {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      .nav-btn.primary {
+        color: #0f172a;
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+
+      .nav-btn.primary:hover:not(:disabled) {
+        background: var(--accent-hover);
+        color: #0f172a;
+      }
+
+      .nav-btn:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+      }
+
+      .page-indicator-btn {
+        appearance: none;
+        cursor: pointer;
+        min-width: 62px;
+        padding: 0.32rem 0.65rem;
+        text-align: center;
+        font-size: 0.84rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        background: rgba(15, 23, 42, 0.55);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        font-variant-numeric: tabular-nums;
+        transition: border-color 0.2s ease, color 0.2s ease;
+      }
+
+      .page-indicator-btn:hover {
+        color: var(--accent);
+        border-color: var(--border-accent);
+      }
+
+      .kbd-hint {
+        font-size: 0.73rem;
+        color: var(--text-secondary);
+        padding-right: 0.25rem;
+        white-space: nowrap;
+      }
+
+      /* Overview Grid Modal (G or Click Page Indicator) */
+      .overview-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(2, 6, 23, 0.88);
+        backdrop-filter: blur(14px);
+        z-index: 60;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.24s ease, visibility 0.24s ease;
+      }
+
+      .overview-overlay.is-open {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .overview-dialog {
+        width: min(1040px, 100%);
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .overview-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .overview-title {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .overview-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.85rem;
+      }
+
+      .overview-thumb {
+        appearance: none;
+        cursor: pointer;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        padding: 0.95rem 1.05rem;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
+      }
+
+      .overview-thumb:hover {
+        transform: translateY(-2px);
+        border-color: var(--border-accent);
+        background: var(--bg-card-hover);
+      }
+
+      .overview-thumb.is-current {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 2px var(--accent-soft);
+      }
+
+      .overview-thumb-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.74rem;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .overview-thumb-title {
+        font-size: 0.94rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        line-height: 1.35;
+      }
+
+      .overview-thumb-sub {
+        font-size: 0.76rem;
+        color: var(--text-secondary);
+        line-height: 1.4;
+      }
+
+      @media (max-width: 1024px) {
+        .kbd-hint {
+          display: none;
+        }
+
+        .p6-split,
+        .cover-hero {
+          grid-template-columns: 1fr;
+        }
+
+        .cover-svg {
+          max-height: 140px;
+        }
+      }
+
+      @media (max-width: 820px) {
+        .deck-grid-4,
+        .deck-grid-3,
+        .deck-grid-2,
+        .overview-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .ratio-card-body {
+          grid-template-columns: 92px 1fr;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .deck-grid-4,
+        .deck-grid-3,
+        .deck-grid-2,
+        .overview-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .deck-pill-hide-sm {
+          display: none;
+        }
+
+        .wiki-source-tag {
+          right: 1rem;
+          bottom: 3.7rem;
+          font-size: 0.68rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="progress-track" aria-hidden="true">
+      <div id="progress-fill" class="progress-fill"></div>
+    </div>
+
+    <header class="deck-topbar">
+      <span class="deck-pill">MIXOLOGY WIKI · 經典調酒工藝教學</span>
+      <div class="deck-top-actions">
+        <button id="overview-btn" type="button" class="icon-pill-btn" title="總覽縮圖網格 (G)">⊞ 總覽 (G)</button>
+        <button id="fullscreen-btn" type="button" class="icon-pill-btn" title="切換全螢幕 (F)">⛶ 全螢幕 (F)</button>
+      </div>
+    </header>
+
+    <main class="slides-viewport" aria-live="polite">
+      <!-- P1: Cover -->
+      <section class="slide is-active" data-slide="1" data-thumb-title="封面：經典調酒工藝入門" data-thumb-sub="7 篇 Wiki 酒譜淬鍊的初學者教材">
+        <div class="slide-inner">
+          <div class="cover-hero">
+            <div>
+              <span class="slide-kicker">01 / MIXOLOGY 101 · 零基礎入門</span>
+              <h1 class="cover-title">經典調酒<span>工藝</span>教學簡報</h1>
+              <p class="cover-subtitle">
+                不靠死背酒譜，從底層物理與風味結構出發，帶你讀懂酒液比例、冰塊融水與三大技法的核心邏輯。
+              </p>
+              <div class="cover-stats">
+                <span class="spec-pill">知識庫規模<strong>7 篇經典酒譜</strong></span>
+                <span class="spec-pill">涵蓋基酒<strong>4 大主流烈酒</strong></span>
+                <span class="spec-pill">核心技法<strong>Stir · Shake · Build</strong></span>
+              </div>
+              <div class="cover-cta-hint">
+                按 <strong>→</strong> 或 <strong>空白鍵</strong> 開始 · <strong>G</strong> 總覽 · <strong>F</strong> 全螢幕
+              </div>
+            </div>
+
+            <div class="cover-svg-wrap" aria-hidden="true">
+              <svg class="cover-svg" viewBox="0 0 260 240" fill="none">
+                <defs>
+                  <linearGradient id="coverGlow" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.35" />
+                    <stop offset="100%" stop-color="#fbbf24" stop-opacity="0.06" />
+                  </linearGradient>
+                  <linearGradient id="coverLiquid" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.72" />
+                    <stop offset="100%" stop-color="#d97706" stop-opacity="0.92" />
+                  </linearGradient>
+                </defs>
+                <circle cx="130" cy="115" r="92" fill="url(#coverGlow)" stroke="rgba(245,158,11,0.28)" stroke-dasharray="4 5" />
+                <polygon points="56,62 204,62 130,136" fill="rgba(15,23,42,0.55)" stroke="#f8fafc" stroke-width="2.5" stroke-linejoin="round" />
+                <polygon points="78,84 182,84 130,136" fill="url(#coverLiquid)" />
+                <line x1="130" y1="136" x2="130" y2="194" stroke="#f8fafc" stroke-width="2.5" />
+                <line x1="92" y1="194" x2="168" y2="194" stroke="#f8fafc" stroke-width="3" stroke-linecap="round" />
+                <circle cx="176" cy="60" r="14" fill="rgba(245,158,11,0.22)" stroke="#f59e0b" stroke-width="2" />
+                <line x1="112" y1="98" x2="150" y2="62" stroke="#f8fafc" stroke-width="1.8" stroke-linecap="round" opacity="0.7" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="wiki-source-tag">
+          <strong>📚 Wiki 來源：</strong>recipes/old-fashioned.html 等 7 篇經典調酒頁 — 全站風味指標、配方比例與技法總覽
+        </div>
+      </section>
+
+      <!-- P2: Learning Map -->
+      <section class="slide" data-slide="2" data-thumb-title="學習地圖：調酒三大維度" data-thumb-sub="基酒風味 × 黃金比例 × 調製技法">
+        <div class="slide-inner">
+          <div class="slide-header">
+            <span class="slide-kicker">02 / 學習地圖 · 教學鷹架總覽</span>
+            <h1 class="slide-title">讀懂一杯調酒的三個核心維度</h1>
+            <p class="slide-lead">每篇 Wiki 酒譜都由「基酒個性、味覺比例、物理技法」共同構成，照著三步驟即可推導出任何經典酒款。</p>
+          </div>
+
+          <div class="deck-grid-3">
+            <article class="deck-card deck-card-accent">
+              <h2 class="deck-card-title">
+                <span>維度一：基酒風味</span>
+                <span class="map-step-num">1</span>
+              </h2>
+              <p class="deck-card-text">
+                基酒決定酒體底蘊與香氣主軸：琴酒帶杜松子草本、威士忌富焦糖木質、白蘭姆具甘蔗清甜、伏特加純淨襯托副材。
+              </p>
+              <span class="spirit-badge">對應 P3 基酒光譜</span>
+            </article>
+
+            <article class="deck-card deck-card-accent">
+              <h2 class="deck-card-title">
+                <span>維度二：黃金比例</span>
+                <span class="map-step-num">2</span>
+              </h2>
+              <p class="deck-card-text">
+                依風味指標（甜／酸／酒感／苦）分為「烈酒＋酸＋甜」、「苦甜 1:1:1」及「氣泡延長」三種經典平衡結構。
+              </p>
+              <span class="spirit-badge">對應 P5–P6 比例圖解</span>
+            </article>
+
+            <article class="deck-card deck-card-accent">
+              <h2 class="deck-card-title">
+                <span>維度三：調製技法</span>
+                <span class="map-step-num">3</span>
+              </h2>
+              <p class="deck-card-text">
+                不同材料決定必須用 Shake 降溫乳化、Stir 控制融水，或 Build 保留氣泡，搭對冰塊與杯型才算完成。
+              </p>
+              <span class="spirit-badge">對應 P4、P7–P8 實戰決策</span>
+            </article>
+          </div>
+
+          <div class="scaffold-banner">
+            <span>學習路徑：<strong>1. 先學底層原理（P3–P4）</strong></span>
+            <span class="scaffold-arrow">→</span>
+            <span><strong>2. 再看 Wiki 案例拆解（P5–P6）</strong></span>
+            <span class="scaffold-arrow">→</span>
+            <span><strong>3. 最後避坑與決策測驗（P7–P9）</strong></span>
+          </div>
+        </div>
+        <div class="wiki-source-tag">
+          <strong>📚 Wiki 來源：</strong>recipes/old-fashioned.html, recipes/daiquiri.html, recipes/gin-tonic.html — 風味指標與技法分類結構
+        </div>
+      </section>
+
+      <!-- P3: Base Spirit Spectrum -->
+      <section class="slide" data-slide="3" data-thumb-title="基酒光譜：四大主流烈酒" data-thumb-sub="琴酒、蘭姆酒、威士忌、伏特加定位">
+        <div class="slide-inner">
+          <div class="slide-header">
+            <span class="slide-kicker">03 / 底層原理 · 基酒光譜</span>
+            <h1 class="slide-title">Wiki 四大經典基酒的風味定位與代表酒款</h1>
+            <p class="slide-lead">從草本芬芳到桶陳醇厚，先認清手中烈酒的性格，就能預測調酒的香氣方向。</p>
+          </div>
+
+          <div class="deck-grid-4">
+            <article class="deck-card">
+              <h2 class="deck-card-title">琴酒 <span class="spirit-badge">Gin</span></h2>
+              <p class="deck-card-text"><strong>風味定位：</strong>倫敦乾琴酒具鮮明杜松子與草本層次，能放大氣泡或抗衡藥草苦甜。</p>
+              <div class="pill-row">
+                <span class="spec-pill">Gin &amp; Tonic<strong>45 ml</strong></span>
+                <span class="spec-pill">Negroni<strong>30 ml</strong></span>
+              </div>
+            </article>
+
+            <article class="deck-card">
+              <h2 class="deck-card-title">蘭姆酒 <span class="spirit-badge">Rum</span></h2>
+              <p class="deck-card-text"><strong>風味定位：</strong>白色蘭姆酒乾淨輕盈、帶甘蔗清香，與現榨萊姆汁及薄荷最為契合。</p>
+              <div class="pill-row">
+                <span class="spec-pill">Mojito<strong>45 ml</strong></span>
+                <span class="spec-pill">Daiquiri<strong>60 ml</strong></span>
+              </div>
+            </article>
+
+            <article class="deck-card">
+              <h2 class="deck-card-title">威士忌 <span class="spirit-badge">Whiskey</span></h2>
+              <p class="deck-card-text"><strong>風味定位：</strong>波本圓潤香草焦糖、裸麥偏辛香胡椒，酒體厚實適合苦精或檸檬酸甜。</p>
+              <div class="pill-row">
+                <span class="spec-pill">Old Fashioned<strong>60 ml</strong></span>
+                <span class="spec-pill">Whiskey Sour<strong>60 ml</strong></span>
+              </div>
+            </article>
+
+            <article class="deck-card">
+              <h2 class="deck-card-title">伏特加 <span class="spirit-badge">Vodka</span></h2>
+              <p class="deck-card-text"><strong>風味定位：</strong>酒體純淨中性不搶戲，能忠實襯托生薑辛辣感與鮮榨萊姆果酸。</p>
+              <div class="pill-row">
+                <span class="spec-pill">Moscow Mule<strong>45 ml</strong></span>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="wiki-source-tag">
+          <strong>📚 Wiki 來源：</strong>recipes/gin-tonic.html, recipes/mojito.html, recipes/old-fashioned.html, recipes/moscow-mule.html — 四大基酒風味筆記
+        </div>
+      </section>
+
+      <!-- P4: 3 Core Techniques Physics + SVG -->
+      <section class="slide" data-slide="4" data-thumb-title="三大調製技法物理原理" data-thumb-sub="Shake / Stir / Build 降溫與融水比較">
+        <div class="slide-inner">
+          <div class="slide-header">
+            <span class="slide-kicker">04 / 底層原理 · 三大調製技法</span>
+            <h1 class="slide-title">Shake、Stir、Build 的物理差異</h1>
+            <p class="slide-lead">調酒不只是混合，更是精準控制「降溫速度、融水稀釋度與氣泡／泡沫留存」。</p>
+          </div>
+
+          <div class="deck-grid-3">
+            <!-- Shake -->
+            <article class="deck-card deck-card-accent">
+              <h2 class="deck-card-title">搖盪 Shake <span class="spirit-badge">10～12 秒</span></h2>
+              <div class="tech-svg-box">
+                <svg class="tech-svg" viewBox="0 0 90 90" fill="none" aria-label="雪克杯圖示">
+                  <path d="M26 30 L64 30 L56 78 L34 78 Z" fill="rgba(245,158,11,0.12)" stroke="#f8fafc" stroke-width="2.2" stroke-linejoin="round" />
+                  <path d="M29 30 L35 16 L55 16 L61 30" stroke="#f59e0b" stroke-width="2.2" stroke-linejoin="round" />
+                  <rect x="40" y="10" width="10" height="6" rx="2" fill="#f59e0b" />
+                  <path d="M16 38 C12 46, 12 56, 16 64" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 3" />
+                  <path d="M74 38 C78 46, 78 56, 74 64" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 3" />
+                </svg>
+              </div>
+              <p class="deck-card-text">冰塊劇烈撞擊至杯壁結霜，快速降溫並乳化果汁、糖漿或蛋白（含蛋白需先乾搖 10 秒）。</p>
+              <div class="physics-bars">
+                <div class="physics-row">
+                  <span>降溫速度</span>
+                  <div class="physics-track"><div class="physics-fill" style="width: 95%"></div></div>
+                  <span class="physics-val">極快</span>
+                </div>
+                <div class="physics-row">
+                  <span>融水稀釋度</span>
+                  <div class="physics-track"><div class="physics-fill" style="width: 82%"></div></div>
+                  <span class="physics-val">高</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Stir -->
+            <article class="deck-card deck-card-accent">
+              <h2 class="deck-card-title">攪拌 Stir <span class="spirit-badge">20～30 秒</span></h2>
+              <div class="tech-svg-box">
+                <svg class="tech-svg" viewBox="0 0 90 90" fill="none" aria-label="攪拌杯與吧叉匙圖示">
+                  <path d="M25 28 L65 28 L61 76 C61 79, 59 80, 56 80 L34 80 C31 80, 29 79, 29 76 Z" fill="rgba(56,189,248,0.08)" stroke="#f8fafc" stroke-width="2.2" />
+                  <line x1="56" y1="10" x2="40" y2="70" stroke="#f59e0b" stroke-width="2.3" stroke-linecap="round" />
+                  <ellipse cx="39" cy="71" rx="5" ry="2.6" transform="rotate(-15 39 71)" fill="#f59e0b" />
+                  <path d="M35 50 C42 46, 50 46, 56 50" stroke="#94a3b8" stroke-width="1.8" stroke-linecap="round" />
+                </svg>
+              </div>
+              <p class="deck-card-text">吧叉匙沿杯壁順暢畫圓，無劇烈氣泡混入，為純烈酒提供理想適度融水與絲滑酒體。</p>
+              <div class="physics-bars">
+                <div class="physics-row">
+                  <span>降溫速度</span>
+                  <div class="physics-track"><div class="physics-fill" style="width: 65%"></div></div>
+                  <span class="physics-val">溫和</span>
+                </div>
+                <div class="physics-row">
+                  <span>融水稀釋度</span>
+                  <div class="physics-track"><div class="physics-fill" style="width: 55%"></div></div>
+                  <span class="physics-val">適中</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Build -->
+            <article class="deck-card deck-card-accent">
+              <h2 class="deck-card-title">直調 Build <span class="spirit-badge">輕提拉 Lift</span></h2>
+              <div class="tech-svg-box">
+                <svg class="tech-svg" viewBox="0 0 90 90" fill="none" aria-label="高球杯與氣泡圖示">
+                  <rect x="29" y="18" width="32" height="62" rx="3" fill="rgba(52,211,153,0.08)" stroke="#f8fafc" stroke-width="2.2" />
+                  <rect x="33" y="42" width="10" height="10" rx="2" stroke="#94a3b8" stroke-width="1.6" />
+                  <rect x="46" y="54" width="10" height="10" rx="2" stroke="#94a3b8" stroke-width="1.6" />
+                  <circle cx="40" cy="34" r="2.2" fill="#f59e0b" />
+                  <circle cx="50" cy="28" r="2.6" fill="#fbbf24" />
+                  <circle cx="45" cy="40" r="1.8" fill="#fde68a" />
+                </svg>
+              </div>
+              <p class="deck-card-text">杯內直接加冰倒料，氣泡飲沿杯壁緩倒後輕提拉一次，減少擾動以鎖住綿密氣泡。</p>
+              <div class="physics-bars">
+                <div class="physics-row">
+                  <span>降溫速度</span>
+                  <div class="physics-track"><div class="physics-fill" style="width: 48%"></div></div>
+                  <span class="physics-val">漸進</span>
+                </div>
+                <div class="physics-row">
+                  <span>融水稀釋度</span>
+                  <div class="physics-track"><div class="physics-fill" style="width: 34%"></div></div>
+                  <span class="physics-val">低</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="wiki-source-tag">
+          <strong>📚 Wiki 來源：</strong>recipes/whiskey-sour.html, recipes/old-fashioned.html, recipes/gin-tonic.html — 乾濕搖時間、攪拌融水與 Lift 保氣泡
+        </div>
+      </section>
+
+      <!-- P5: Golden Ratio I (Sour Balance) + SVG Cutaway Cups -->
+      <section class="slide" data-slide="5" data-thumb-title="黃金比例 I：酸甜平衡型" data-thumb-sub="Daiquiri 與 Whiskey Sour 剖面圖解">
+        <div class="slide-inner">
+          <div class="slide-header">
+            <span class="slide-kicker">05 / Wiki 案例拆解 · 黃金比例 I</span>
+            <h1 class="slide-title">酸甜平衡公式：烈酒 + 現榨果酸 + 糖漿</h1>
+            <p class="slide-lead">以大量基酒撐起骨架，再用現榨柑橘酸度與 1:1 糖漿建立張力，兩者皆須現榨果酸與雙重過濾。</p>
+          </div>
+
+          <div class="deck-grid-2">
+            <!-- Daiquiri SVG -->
+            <article class="deck-card">
+              <h2 class="deck-card-title">戴綺麗 Daiquiri <span class="spirit-badge">Shake · 總量 100 ml</span></h2>
+              <div class="ratio-card-body">
+                <svg class="cup-svg" viewBox="0 0 130 165" fill="none" aria-label="戴綺麗 Coupe 杯比例剖面圖">
+                  <defs>
+                    <clipPath id="coupeClip">
+                      <path d="M18 32 C18 76, 40 94, 65 94 C90 94, 112 76, 112 32 Z" />
+                    </clipPath>
+                  </defs>
+                  <!-- 60% Rum (bottom 37px of 62px bowl), 25% Lime (16px), 15% Syrup (9px) -->
+                  <g clip-path="url(#coupeClip)">
+                    <rect x="15" y="32" width="100" height="10" fill="rgba(251,191,36,0.75)" />
+                    <rect x="15" y="42" width="100" height="16" fill="rgba(74,222,128,0.68)" />
+                    <rect x="15" y="58" width="100" height="38" fill="rgba(226,232,240,0.45)" />
+                  </g>
+                  <path d="M18 32 C18 76, 40 94, 65 94 C90 94, 112 76, 112 32 Z" stroke="#f8fafc" stroke-width="2.2" />
+                  <line x1="65" y1="94" x2="65" y2="146" stroke="#f8fafc" stroke-width="2.4" />
+                  <line x1="40" y1="146" x2="90" y2="146" stroke="#f8fafc" stroke-width="2.6" stroke-linecap="round" />
+                  <line x1="22" y1="42" x2="108" y2="42" stroke="#f8fafc" stroke-width="0.9" stroke-dasharray="3 2" opacity="0.7" />
+                  <line x1="25" y1="58" x2="105" y2="58" stroke="#f8fafc" stroke-width="0.9" stroke-dasharray="3 2" opacity="0.7" />
+                </svg>
+
+                <div class="ratio-legend">
+                  <div class="legend-item">
+                    <span class="legend-label"><span class="legend-dot" style="background:#fbbf24"></span>糖漿 1:1</span>
+                    <span class="legend-ml">15 ml</span>
+                  </div>
+                  <div class="legend-item">
+                    <span class="legend-label"><span class="legend-dot" style="background:#4ade80"></span>新鮮萊姆汁</span>
+                    <span class="legend-ml">25 ml</span>
+                  </div>
+                  <div class="legend-item">
+                    <span class="legend-label"><span class="legend-dot" style="background:#cbd5e1"></span>白色蘭姆酒</span>
+                    <span class="legend-ml">60 ml</span>
+                  </div>
+                  <p class="deck-card-text">預冰 Coupe 杯無冰純飲（Up），雙重過濾去除碎冰渣與果肉，酸甜乾淨俐落。</p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Whiskey Sour SVG -->
+            <article class="deck-card">
+              <h2 class="deck-card-title">威士忌酸酒 Whiskey Sour <span class="spirit-badge">乾濕搖 · 120 ml</span></h2>
+              <div class="ratio-card-body">
+                <svg class="cup-svg" viewBox="0 0 130 165" fill="none" aria-label="威士忌酸酒古典杯比例剖面圖">
+                  <defs>
+                    <clipPath id="sourClip">
+                      <path d="M24 32 L106 32 L100 136 L30 136 Z" />
+                    </clipPath>
+                  </defs>
+                  <!-- 104px liquid height: 15ml foam(13px), 20ml syrup(17px), 25ml lemon(22px), 60ml bourbon(52px) -->
+                  <g clip-path="url(#sourClip)">
+                    <rect x="20" y="32" width="90" height="14" fill="rgba(248,250,252,0.86)" />
+                    <rect x="20" y="46" width="90" height="17" fill="rgba(251,191,36,0.75)" />
+                    <rect x="20" y="63" width="90" height="22" fill="rgba(250,204,21,0.55)" />
+                    <rect x="20" y="85" width="90" height="52" fill="rgba(217,119,6,0.85)" />
+                  </g>
+                  <path d="M24 32 L106 32 L100 136 L30 136 Z" stroke="#f8fafc" stroke-width="2.2" stroke-linejoin="round" />
+                  <line x1="30" y1="142" x2="100" y2="142" stroke="#f8fafc" stroke-width="3" stroke-linecap="round" />
+                  <circle cx="52" cy="36" r="2.2" fill="#dc2626" />
+                  <circle cx="65" cy="36" r="2.2" fill="#dc2626" />
+                  <circle cx="78" cy="36" r="2.2" fill="#dc2626" />
+                  <line x1="25" y1="46" x2="105" y2="46" stroke="#0f172a" stroke-width="0.9" stroke-dasharray="3 2" opacity="0.6" />
+                  <line x1="26" y1="63" x2="104" y2="63" stroke="#f8fafc" stroke-width="0.9" stroke-dasharray="3 2" opacity="0.6" />
+                  <line x1="28" y1="85" x2="102" y2="85" stroke="#f8fafc" stroke-width="0.9" stroke-dasharray="3 2" opacity="0.6" />
+                </svg>
+
+                <div class="ratio-legend">
+                  <div class="legend-item">
+                    <span class="legend-label"><span class="legend-dot" style="background:#f8fafc"></span>蛋白＋苦精 2 dash</span>
+                    <span class="legend-ml">15 ml</span>
+                  </div>
+                  <div class="legend-item">
+                    <span class="legend-label"><span class="legend-dot" style="background:#fbbf24"></span>糖漿 1:1</span>
+                    <span class="legend-ml">20 ml</span>
+                  </div>
+                  <div class="legend-item">
+                    <span class="legend-label"><span class="legend-dot" style="background:#fde047"></span>新鮮檸檬汁</span>
+                    <span class="legend-ml">25 ml</span>
+                  </div>
+                  <div class="legend-item">
+                    <span class="legend-label"><span class="legend-dot" style="background:#d97706"></span>波本威士忌</span>
+                    <span class="legend-ml">60 ml</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="wiki-source-tag">
+          <strong>📚 Wiki 來源：</strong>recipes/daiquiri.html, recipes/whiskey-sour.html — 酸酒比例結構、雙重過濾與蛋白乾濕搖
+        </div>
+      </section>
+
+      <!-- P6: Golden Ratio II (Bitter-Sweet & Highball) + SVG Cutaways -->
+      <section class="slide" data-slide="6" data-thumb-title="黃金比例 II：苦甜與氣泡延長" data-thumb-sub="Negroni、Old Fashioned 與三款氣泡高球">
+        <div class="slide-inner">
+          <div class="slide-header">
+            <span class="slide-kicker">06 / Wiki 案例拆解 · 黃金比例 II</span>
+            <h1 class="slide-title">苦甜平衡結構 vs. 氣泡延長比例</h1>
+            <p class="slide-lead">純烈酒靠苦甜互相制衡（Stir），氣泡款則用 1:2.5～1:3 等高比例碳酸飲料延展清爽度（Build）。</p>
+          </div>
+
+          <div class="p6-split">
+            <!-- Left: Bitter-Sweet (Stir) -->
+            <section class="p6-group">
+              <h2 class="p6-group-title">
+                <span>苦甜平衡型（Stir · 古典杯）</span>
+                <span class="spirit-badge">慢攪保酒體</span>
+              </h2>
+              <div class="p6-mini-list">
+                <div class="p6-mini-row">
+                  <svg class="cup-svg-compact" viewBox="0 0 100 118" fill="none" aria-label="內格羅尼 1:1:1 剖面圖">
+                    <defs>
+                      <clipPath id="negClip"><path d="M18 22 L82 22 L77 100 L23 100 Z" /></clipPath>
+                    </defs>
+                    <g clip-path="url(#negClip)">
+                      <rect x="15" y="28" width="70" height="24" fill="rgba(226,232,240,0.45)" />
+                      <rect x="15" y="52" width="70" height="24" fill="rgba(239,68,68,0.82)" />
+                      <rect x="15" y="76" width="70" height="24" fill="rgba(153,27,27,0.88)" />
+                    </g>
+                    <path d="M18 22 L82 22 L77 100 L23 100 Z" stroke="#f8fafc" stroke-width="2" />
+                    <line x1="20" y1="52" x2="80" y2="52" stroke="#f8fafc" stroke-width="0.9" stroke-dasharray="3 2" opacity="0.7" />
+                    <line x1="22" y1="76" x2="78" y2="76" stroke="#f8fafc" stroke-width="0.9" stroke-dasharray="3 2" opacity="0.7" />
+                  </svg>
+                  <div class="p6-mini-info">
+                    <span class="p6-mini-name">內格羅尼 Negroni（1:1:1）</span>
+                    <div class="pill-row">
+                      <span class="spec-pill">琴酒<strong>30 ml</strong></span>
+                      <span class="spec-pill">Campari<strong>30 ml</strong></span>
+                      <span class="spec-pill">甜苦艾<strong>30 ml</strong></span>
+                    </div>
+                    <span class="p6-mini-note">三等分黃金比例交織藥草苦甜，柳橙皮噴香柔化苦韻。</span>
+                  </div>
+                </div>
+
+                <div class="p6-mini-row">
+                  <svg class="cup-svg-compact" viewBox="0 0 100 118" fill="none" aria-label="古典雞尾酒剖面圖">
+                    <defs>
+                      <clipPath id="ofClip"><path d="M18 22 L82 22 L77 100 L23 100 Z" /></clipPath>
+                    </defs>
+                    <g clip-path="url(#ofClip)">
+                      <rect x="15" y="34" width="70" height="8" fill="rgba(251,191,36,0.8)" />
+                      <rect x="15" y="42" width="70" height="58" fill="rgba(217,119,6,0.86)" />
+                    </g>
+                    <path d="M18 22 L82 22 L77 100 L23 100 Z" stroke="#f8fafc" stroke-width="2" />
+                    <line x1="20" y1="42" x2="80" y2="42" stroke="#f8fafc" stroke-width="0.9" stroke-dasharray="3 2" opacity="0.7" />
+                  </svg>
+                  <div class="p6-mini-info">
+                    <span class="p6-mini-name">古典雞尾酒 Old Fashioned</span>
+                    <div class="pill-row">
+                      <span class="spec-pill">威士忌<strong>60 ml</strong></span>
+                      <span class="spec-pill">2:1糖漿<strong>7.5 ml</strong></span>
+                      <span class="spec-pill">雙苦精<strong>3 dash</strong></span>
+                    </div>
+                    <span class="p6-mini-note">高濃度基酒搭配濃縮糖漿與安格仕 2 + 柳橙苦精 1 dash。</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Right: Sparkling Highballs (Build) -->
+            <section class="p6-group">
+              <h2 class="p6-group-title">
+                <span>氣泡延長型（Build · 高球／銅杯）</span>
+                <span class="spirit-badge">鎖氣泡延伸</span>
+              </h2>
+              <div class="p6-mini-list">
+                <div class="p6-mini-row">
+                  <svg class="cup-svg-compact" viewBox="0 0 86 118" fill="none" aria-label="琴通寧高球杯比例剖面圖">
+                    <defs><clipPath id="gtClip"><rect x="23" y="14" width="40" height="90" rx="3" /></clipPath></defs>
+                    <g clip-path="url(#gtClip)">
+                      <rect x="20" y="22" width="46" height="60" fill="rgba(186,230,253,0.34)" />
+                      <rect x="20" y="82" width="46" height="22" fill="rgba(148,163,184,0.45)" />
+                    </g>
+                    <rect x="23" y="14" width="40" height="90" rx="3" stroke="#f8fafc" stroke-width="2" />
+                    <circle cx="36" cy="40" r="2" fill="#e0f2fe" />
+                    <circle cx="48" cy="56" r="2" fill="#e0f2fe" />
+                    <line x1="23" y1="82" x2="63" y2="82" stroke="#f8fafc" stroke-width="0.9" stroke-dasharray="3 2" />
+                  </svg>
+                  <div class="p6-mini-info">
+                    <span class="p6-mini-name">琴通寧 Gin &amp; Tonic（1:2.5～1:3）</span>
+                    <div class="pill-row">
+                      <span class="spec-pill">琴酒<strong>45 ml</strong></span>
+                      <span class="spec-pill">通寧水<strong>120 ml</strong></span>
+                    </div>
+                    <span class="p6-mini-note">大量通寧水奎寧微苦與氣泡，放大杜松子草本香。</span>
+                  </div>
+                </div>
+
+                <div class="p6-mini-row">
+                  <svg class="cup-svg-compact" viewBox="0 0 86 118" fill="none" aria-label="莫希托高球杯比例剖面圖">
+                    <defs><clipPath id="mjClip"><rect x="23" y="14" width="40" height="90" rx="3" /></clipPath></defs>
+                    <g clip-path="url(#mjClip)">
+                      <rect x="20" y="22" width="46" height="33" fill="rgba(186,230,253,0.34)" />
+                      <rect x="20" y="55" width="46" height="25" fill="rgba(74,222,128,0.48)" />
+                      <rect x="20" y="80" width="46" height="24" fill="rgba(226,232,240,0.45)" />
+                    </g>
+                    <rect x="23" y="14" width="40" height="90" rx="3" stroke="#f8fafc" stroke-width="2" />
+                    <line x1="23" y1="55" x2="63" y2="55" stroke="#f8fafc" stroke-width="0.9" stroke-dasharray="3 2" />
+                    <line x1="23" y1="80" x2="63" y2="80" stroke="#f8fafc" stroke-width="0.9" stroke-dasharray="3 2" />
+                  </svg>
+                  <div class="p6-mini-info">
+                    <span class="p6-mini-name">莫希托 Mojito</span>
+                    <div class="pill-row">
+                      <span class="spec-pill">白蘭姆<strong>45 ml</strong></span>
+                      <span class="spec-pill">萊姆<strong>25 ml</strong></span>
+                      <span class="spec-pill">糖漿<strong>20 ml</strong></span>
+                      <span class="spec-pill">蘇打<strong>60 ml</strong></span>
+                    </div>
+                    <span class="p6-mini-note">酸甜＋薄荷 8～10 片底韻，補蘇打水與碎冰延長清爽感。</span>
+                  </div>
+                </div>
+
+                <div class="p6-mini-row">
+                  <svg class="cup-svg-compact" viewBox="0 0 86 118" fill="none" aria-label="莫斯科騾子銅杯比例剖面圖">
+                    <defs><clipPath id="mmClip"><rect x="23" y="18" width="40" height="84" rx="3" /></clipPath></defs>
+                    <g clip-path="url(#mmClip)">
+                      <rect x="20" y="24" width="46" height="52" fill="rgba(251,191,36,0.52)" />
+                      <rect x="20" y="76" width="46" height="26" fill="rgba(203,213,225,0.45)" />
+                    </g>
+                    <rect x="23" y="18" width="40" height="84" rx="3" stroke="#f59e0b" stroke-width="2.2" />
+                    <path d="M63 36 C73 36, 73 74, 63 74" stroke="#f59e0b" stroke-width="2.2" />
+                    <line x1="23" y1="76" x2="63" y2="76" stroke="#f8fafc" stroke-width="0.9" stroke-dasharray="3 2" />
+                  </svg>
+                  <div class="p6-mini-info">
+                    <span class="p6-mini-name">莫斯科騾子 Moscow Mule</span>
+                    <div class="pill-row">
+                      <span class="spec-pill">伏特加<strong>45 ml</strong></span>
+                      <span class="spec-pill">萊姆<strong>15 ml</strong></span>
+                      <span class="spec-pill">薑汁啤酒<strong>120 ml</strong></span>
+                    </div>
+                    <span class="p6-mini-note">高比例辛辣 Ginger Beer 搭高導熱銅杯鎖冷。</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="wiki-source-tag">
+          <strong>📚 Wiki 來源：</strong>recipes/negroni.html, recipes/old-fashioned.html, recipes/gin-tonic.html, recipes/mojito.html, recipes/moscow-mule.html — 苦甜與氣泡配方比例
+        </div>
+      </section>
+
+      <!-- P7: Common Pitfalls (Do vs. Don't) -->
+      <section class="slide" data-slide="7" data-thumb-title="新手常見誤區：Do vs. Don't" data-thumb-sub="為什麼純烈酒不能搖、薄荷不能搗碎">
+        <div class="slide-inner">
+          <div class="slide-header">
+            <span class="slide-kicker">07 / 實戰避坑 · Do vs. Don't</span>
+            <h1 class="slide-title">新手最容易踩的 4 個調酒誤區</h1>
+            <p class="slide-lead">好喝與失敗往往只差一個操作細節：融水、氣泡、植物單寧與柑橘海綿層。</p>
+          </div>
+
+          <div class="deck-grid-2">
+            <article class="deck-card compare-card-dont">
+              <h2 class="deck-card-title">❌ Don't · 新手常見錯誤</h2>
+              <ul class="compare-list">
+                <li class="compare-item">
+                  <strong>1. 把 Negroni／Old Fashioned 拿去搖盪</strong>
+                  純烈酒與利口酒組合若用 Shake，會快速融水過度稀釋，並打碎草本與木質酒體的澄澈滑順感。
+                </li>
+                <li class="compare-item">
+                  <strong>2. 製作 Mojito 用力搗碎薄荷葉</strong>
+                  過度搗碎葉片會壓出葉綠素與草腥苦味，讓清爽口感變混濁生澀。
+                </li>
+                <li class="compare-item">
+                  <strong>3. 直沖氣泡飲或用 Ginger Ale 替代</strong>
+                  直接往冰塊中心猛倒或用力攪拌會讓氣泡瞬間消散；Ginger Ale 偏甜淡，做不出莫斯科騾子辛爽辣感。
+                </li>
+                <li class="compare-item">
+                  <strong>4. 切柳橙皮帶到過多白色海綿層</strong>
+                  白色海綿層含有生澀苦味，擠皮噴香時會連帶破壞酒體平衡。
+                </li>
+              </ul>
+            </article>
+
+            <article class="deck-card compare-card-do">
+              <h2 class="deck-card-title">✅ Do · Wiki 推薦正確做法</h2>
+              <ul class="compare-list">
+                <li class="compare-item">
+                  <strong>1. 純烈酒採 Stir 慢攪＋大顆老冰</strong>
+                  在調酒杯攪拌 20～30 秒精準控水，並濾入單顆老冰球或透明方冰維持全程酒體。
+                </li>
+                <li class="compare-item">
+                  <strong>2. 薄荷輕柔按壓＋頂芽輕拍（Slap）</strong>
+                  杯底僅用搗棒輕壓數下釋放精油；裝飾頂芽先於掌心輕拍喚香。
+                </li>
+                <li class="compare-item">
+                  <strong>3. 沿杯壁緩倒＋輕提拉（Lift）一次</strong>
+                  保留通寧水與蘇打水綿密氣泡；《莫斯科騾子》務必選用帶生薑辣感的 Ginger Beer。
+                </li>
+                <li class="compare-item">
+                  <strong>4. 只取表層橙皮噴香並拭杯緣</strong>
+                  避開白色海綿層，利用柑橘精油提亮木質調或柔化 Campari 的藥草苦韻。
+                </li>
+              </ul>
+            </article>
+          </div>
+        </div>
+        <div class="wiki-source-tag">
+          <strong>📚 Wiki 來源：</strong>recipes/negroni.html, recipes/old-fashioned.html, recipes/mojito.html, recipes/moscow-mule.html — 融水控制、薄荷輕壓與氣泡保留原則
+        </div>
+      </section>
+
+      <!-- P8: Decision Tree Flowchart SVG -->
+      <section class="slide" data-slide="8" data-thumb-title="技法決策樹：實戰流程圖" data-thumb-sub="從手邊材料一步步決定技法與杯型">
+        <div class="slide-inner">
+          <div class="slide-header">
+            <span class="slide-kicker">08 / 實戰決策樹 · Flowchart</span>
+            <h1 class="slide-title">給初學者的調酒技法決策流程圖</h1>
+            <p class="slide-lead">只要依序問自己兩個材料問題，就能 100% 判斷該用 Build、Shake 還是 Stir。</p>
+          </div>
+
+          <div class="flowchart-panel">
+            <svg class="flowchart-svg" viewBox="0 0 960 350" fill="none" aria-label="從材料判斷調酒技法與杯型的決策流程圖">
+              <defs>
+                <filter id="glowAmber" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#f59e0b" flood-opacity="0.4" />
+                </filter>
+                <marker id="arrowAmber" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                  <path d="M0,0 L8,4 L0,8 Z" fill="#f59e0b" />
+                </marker>
+                <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                  <path d="M0,0 L8,4 L0,8 Z" fill="#34d399" />
+                </marker>
+                <marker id="arrowSky" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                  <path d="M0,0 L8,4 L0,8 Z" fill="#38bdf8" />
+                </marker>
+              </defs>
+
+              <!-- Start Node -->
+              <rect x="20" y="140" width="140" height="68" rx="12" fill="rgba(30,41,59,0.92)" stroke="#f59e0b" stroke-width="2" filter="url(#glowAmber)" />
+              <text x="90" y="169" text-anchor="middle" fill="#f59e0b" font-size="12" font-weight="700">STEP 1</text>
+              <text x="90" y="191" text-anchor="middle" fill="#f8fafc" font-size="15" font-weight="700">檢視配方材料</text>
+
+              <!-- Arrow to Q1 -->
+              <line x1="160" y1="174" x2="215" y2="174" stroke="#f59e0b" stroke-width="2.2" marker-end="url(#arrowAmber)" />
+
+              <!-- Q1: Sparkling? -->
+              <rect x="223" y="132" width="190" height="84" rx="14" fill="rgba(15,23,42,0.9)" stroke="#f59e0b" stroke-width="2" />
+              <text x="318" y="162" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="700">判斷一 · 氣泡成分</text>
+              <text x="318" y="185" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="700">含通寧水 / 蘇打 /</text>
+              <text x="318" y="204" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="700">薑汁啤酒嗎？</text>
+
+              <!-- Branch YES -> Build -->
+              <path d="M318 132 L318 58 L468 58" stroke="#34d399" stroke-width="2.2" marker-end="url(#arrowGreen)" />
+              <rect x="352" y="45" width="46" height="22" rx="11" fill="#0f172a" stroke="#34d399" stroke-width="1.2" />
+              <text x="375" y="60" text-anchor="middle" fill="#34d399" font-size="12" font-weight="700">是</text>
+
+              <!-- Result: Build -->
+              <rect x="476" y="18" width="464" height="80" rx="14" fill="rgba(30,41,59,0.9)" stroke="#34d399" stroke-width="2" />
+              <text x="500" y="46" fill="#34d399" font-size="16" font-weight="800">Build 直調法</text>
+              <text x="615" y="46" fill="#f8fafc" font-size="13" font-weight="600">→ 高球杯 / 銅杯 · 沿壁緩倒＋輕提拉（Lift）</text>
+              <text x="500" y="76" fill="#94a3b8" font-size="13">代表案例：Gin &amp; Tonic（大冰）、Mojito（碎冰輕壓薄荷）、Moscow Mule（銅杯）</text>
+
+              <!-- Branch NO -> Q2 -->
+              <path d="M318 216 L318 260 L440 260" stroke="#f59e0b" stroke-width="2.2" marker-end="url(#arrowAmber)" />
+              <rect x="348" y="247" width="46" height="22" rx="11" fill="#0f172a" stroke="#f59e0b" stroke-width="1.2" />
+              <text x="371" y="262" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="700">否</text>
+
+              <!-- Q2: Juice or Egg White? -->
+              <rect x="448" y="218" width="188" height="84" rx="14" fill="rgba(15,23,42,0.9)" stroke="#f59e0b" stroke-width="2" />
+              <text x="542" y="248" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="700">判斷二 · 乳化需求</text>
+              <text x="542" y="271" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="700">含新鮮果汁或</text>
+              <text x="542" y="290" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="700">蛋白嗎？</text>
+
+              <!-- Branch YES -> Shake -->
+              <path d="M636 236 L675 236 L675 162 L706 162" stroke="#f59e0b" stroke-width="2.2" marker-end="url(#arrowAmber)" />
+              <rect x="652" y="182" width="42" height="22" rx="11" fill="#0f172a" stroke="#f59e0b" stroke-width="1.2" />
+              <text x="673" y="197" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="700">是</text>
+
+              <!-- Result: Shake -->
+              <rect x="714" y="118" width="226" height="92" rx="14" fill="rgba(30,41,59,0.9)" stroke="#f59e0b" stroke-width="2" />
+              <text x="734" y="145" fill="#fbbf24" font-size="15" font-weight="800">Shake 搖盪法</text>
+              <text x="734" y="168" fill="#f8fafc" font-size="12.5">10～12 秒＋雙重過濾</text>
+              <text x="734" y="191" fill="#94a3b8" font-size="12">Daiquiri · Whiskey Sour</text>
+
+              <!-- Branch NO -> Stir -->
+              <path d="M636 286 L706 286" stroke="#38bdf8" stroke-width="2.2" marker-end="url(#arrowSky)" />
+              <rect x="652" y="274" width="42" height="22" rx="11" fill="#0f172a" stroke="#38bdf8" stroke-width="1.2" />
+              <text x="673" y="289" text-anchor="middle" fill="#38bdf8" font-size="12" font-weight="700">否</text>
+
+              <!-- Result: Stir -->
+              <rect x="714" y="236" width="226" height="96" rx="14" fill="rgba(30,41,59,0.9)" stroke="#38bdf8" stroke-width="2" />
+              <text x="734" y="263" fill="#38bdf8" font-size="15" font-weight="800">Stir 攪拌法（純烈酒）</text>
+              <text x="734" y="286" fill="#f8fafc" font-size="12.5">20～30 秒 · 古典杯＋大老冰</text>
+              <text x="734" y="309" fill="#94a3b8" font-size="12">Old Fashioned · Negroni</text>
+            </svg>
+          </div>
+        </div>
+        <div class="wiki-source-tag">
+          <strong>📚 Wiki 來源：</strong>recipes/daiquiri.html, recipes/whiskey-sour.html, recipes/old-fashioned.html, recipes/gin-tonic.html — 依成分選擇技法與杯型
+        </div>
+      </section>
+
+      <!-- P9: Interactive 3-Question Quiz -->
+      <section class="slide" data-slide="9" data-thumb-title="互動隨堂小測驗（3 題）" data-thumb-sub="即時檢核對錯與 Wiki 原理解析">
+        <div class="slide-inner">
+          <div class="slide-header">
+            <div class="quiz-status-bar">
+              <span class="slide-kicker">09 / 隨堂驗收 · 互動小測驗</span>
+              <div class="pill-row">
+                <span id="quiz-score" class="quiz-score-badge">已作答 0 / 3 · 答對 0 題</span>
+                <button id="quiz-reset" type="button" class="quiz-reset-btn">重新作答</button>
+              </div>
+            </div>
+            <h1 class="slide-title">隨堂小測驗——檢驗你的經典調酒工藝</h1>
+            <p class="slide-lead">點擊選項即時作答，所有題目與解析均 100% 源自 Mixology Wiki 調酒筆記。</p>
+          </div>
+
+          <div class="deck-grid-3">
+            <article class="quiz-card" data-question="0" data-answer="1">
+              <p class="quiz-q">1. 為什麼《內格羅尼 Negroni》適合用 Stir（攪拌法），而不該用 Shake（搖盪法）？</p>
+              <div class="quiz-options">
+                <button type="button" class="quiz-option" data-option="0">A. 攪拌法才能保留通寧水的氣泡</button>
+                <button type="button" class="quiz-option" data-option="1">B. 避免過度融水稀釋並維持苦甜純烈酒結構</button>
+                <button type="button" class="quiz-option" data-option="2">C. 因為配方含有蛋白需要緩慢打發</button>
+              </div>
+              <div class="quiz-feedback" aria-live="polite">請選擇答案查看 Wiki 原理解析。</div>
+            </article>
+
+            <article class="quiz-card" data-question="1" data-answer="0">
+              <p class="quiz-q">2. 調製《威士忌酸酒》加入蛋白時，為什麼要先「不加冰乾搖（Dry Shake）」？</p>
+              <div class="quiz-options">
+                <button type="button" class="quiz-option" data-option="0">A. 先讓蛋白充分起泡，再加冰濕搖降溫</button>
+                <button type="button" class="quiz-option" data-option="1">B. 讓安格仕苦精完全沉澱在杯底</button>
+                <button type="button" class="quiz-option" data-option="2">C. 加速冰塊融化以降低威士忌酒感</button>
+              </div>
+              <div class="quiz-feedback" aria-live="polite">請選擇答案查看 Wiki 原理解析。</div>
+            </article>
+
+            <article class="quiz-card" data-question="2" data-answer="2">
+              <p class="quiz-q">3. 關於氣泡高球與草本處理，下列哪一項做法「完全符合」Wiki 規範？</p>
+              <div class="quiz-options">
+                <button type="button" class="quiz-option" data-option="0">A. 製作《莫希托》應用力搗碎薄荷葉</button>
+                <button type="button" class="quiz-option" data-option="1">B. 製作《莫斯科騾子》建議改用偏甜 Ginger Ale</button>
+                <button type="button" class="quiz-option" data-option="2">C. 製作《琴通寧》應沿壁緩倒通寧水並輕提拉一次</button>
+              </div>
+              <div class="quiz-feedback" aria-live="polite">請選擇答案查看 Wiki 原理解析。</div>
+            </article>
+          </div>
+        </div>
+        <div class="wiki-source-tag">
+          <strong>📚 Wiki 來源：</strong>recipes/negroni.html, recipes/whiskey-sour.html, recipes/gin-tonic.html, recipes/mojito.html, recipes/moscow-mule.html — 技法原理與操作細節
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom Floating Controls -->
+    <nav class="deck-controls" aria-label="簡報翻頁控制">
+      <button id="prev-btn" type="button" class="nav-btn">← 上一頁</button>
+      <button id="page-indicator" type="button" class="page-indicator-btn" title="點擊開啟投影片總覽 (G)">1 / 9</button>
+      <button id="next-btn" type="button" class="nav-btn primary">下一頁 →</button>
+      <span class="kbd-hint">← → / Space 翻頁 · G 總覽 · F 全螢幕</span>
+    </nav>
+
+    <!-- Overview Grid Modal -->
+    <div id="overview-overlay" class="overview-overlay" role="dialog" aria-modal="true" aria-labelledby="overview-title">
+      <div class="overview-dialog">
+        <div class="overview-header">
+          <h2 id="overview-title" class="overview-title">投影片總覽縮圖網格（點擊快速跳轉）</h2>
+          <button id="overview-close" type="button" class="icon-pill-btn">✕ 關閉 (Esc)</button>
+        </div>
+        <div id="overview-grid" class="overview-grid"></div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const slides = Array.from(document.querySelectorAll('.slide'));
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const pageIndicator = document.getElementById('page-indicator');
+        const progressFill = document.getElementById('progress-fill');
+        const overviewBtn = document.getElementById('overview-btn');
+        const overviewOverlay = document.getElementById('overview-overlay');
+        const overviewClose = document.getElementById('overview-close');
+        const overviewGrid = document.getElementById('overview-grid');
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        const buildOverview = () => {
+          overviewGrid.innerHTML = '';
+          slides.forEach((slide, idx) => {
+            const thumb = document.createElement('button');
+            thumb.type = 'button';
+            thumb.className = 'overview-thumb';
+            thumb.dataset.index = String(idx);
+            thumb.innerHTML = `
+              <span class="overview-thumb-top"><span>P${idx + 1}</span><span>${idx === currentIndex ? '目前頁面' : '點擊跳轉'}</span></span>
+              <span class="overview-thumb-title">${slide.dataset.thumbTitle || ''}</span>
+              <span class="overview-thumb-sub">${slide.dataset.thumbSub || ''}</span>
+            `;
+            thumb.addEventListener('click', () => {
+              renderSlide(idx);
+              toggleOverview(false);
+            });
+            overviewGrid.appendChild(thumb);
+          });
+        };
+
+        const syncOverviewHighlight = () => {
+          const thumbs = overviewGrid.querySelectorAll('.overview-thumb');
+          thumbs.forEach((thumb, idx) => {
+            const isCurrent = idx === currentIndex;
+            thumb.classList.toggle('is-current', isCurrent);
+            const badge = thumb.querySelector('.overview-thumb-top span:last-child');
+            if (badge) badge.textContent = isCurrent ? '目前頁面' : '點擊跳轉';
+          });
+        };
+
+        const toggleOverview = (forceState) => {
+          const shouldOpen =
+            typeof forceState === 'boolean'
+              ? forceState
+              : !overviewOverlay.classList.contains('is-open');
+          overviewOverlay.classList.toggle('is-open', shouldOpen);
+          if (shouldOpen) syncOverviewHighlight();
+        };
+
+        const toggleFullscreen = async () => {
+          try {
+            if (!document.fullscreenElement) {
+              await document.documentElement.requestFullscreen();
+            } else {
+              await document.exitFullscreen();
+            }
+          } catch (_) {
+            /* Ignore if fullscreen API is restricted */
+          }
+        };
+
+        document.addEventListener('fullscreenchange', () => {
+          fullscreenBtn.textContent = document.fullscreenElement ? '⛶ 退出全螢幕 (F)' : '⛶ 全螢幕 (F)';
+        });
+
+        const renderSlide = (index) => {
+          currentIndex = Math.max(0, Math.min(totalSlides - 1, index));
+
+          slides.forEach((slide, idx) => {
+            const isActive = idx === currentIndex;
+            slide.classList.toggle('is-active', isActive);
+            slide.setAttribute('aria-hidden', String(!isActive));
+          });
+
+          pageIndicator.textContent = `${currentIndex + 1} / ${totalSlides}`;
+          progressFill.style.width = `${((currentIndex + 1) / totalSlides) * 100}%`;
+          prevBtn.disabled = currentIndex === 0;
+          nextBtn.disabled = currentIndex === totalSlides - 1;
+          syncOverviewHighlight();
+        };
+
+        prevBtn.addEventListener('click', () => renderSlide(currentIndex - 1));
+        nextBtn.addEventListener('click', () => renderSlide(currentIndex + 1));
+        pageIndicator.addEventListener('click', () => toggleOverview());
+        overviewBtn.addEventListener('click', () => toggleOverview());
+        overviewClose.addEventListener('click', () => toggleOverview(false));
+        overviewOverlay.addEventListener('click', (event) => {
+          if (event.target === overviewOverlay) toggleOverview(false);
+        });
+        fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+        document.addEventListener('keydown', (event) => {
+          const isOverviewOpen = overviewOverlay.classList.contains('is-open');
+
+          if (event.key === 'Escape' && isOverviewOpen) {
+            event.preventDefault();
+            toggleOverview(false);
+            return;
+          }
+
+          if (event.key === 'g' || event.key === 'G') {
+            event.preventDefault();
+            toggleOverview();
+            return;
+          }
+
+          if (event.key === 'f' || event.key === 'F') {
+            event.preventDefault();
+            toggleFullscreen();
+            return;
+          }
+
+          if (isOverviewOpen) return;
+
+          if (event.key === 'ArrowRight' || event.key === ' ') {
+            event.preventDefault();
+            if (event.shiftKey && event.key === ' ') {
+              renderSlide(currentIndex - 1);
+            } else {
+              renderSlide(currentIndex + 1);
+            }
+          } else if (event.key === 'ArrowLeft') {
+            event.preventDefault();
+            renderSlide(currentIndex - 1);
+          }
+        });
+
+        /* P9: 3-Question Interactive Quiz */
+        const explanations = [
+          '純烈酒與利口酒組合怕過度稀釋，Stir 20～25 秒配大老冰能維持濃郁草本與苦甜層次。（recipes/negroni.html）',
+          '先不加冰乾搖約 10 秒使蛋白充分起泡，再濕搖 10～12 秒並雙重過濾，即可形成綿密泡沫。（recipes/whiskey-sour.html）',
+          '《琴通寧》須沿壁緩倒＋輕提拉保留氣泡；《莫希托》薄荷僅輕壓防草腥苦，《莫斯科騾子》須用 Ginger Beer。（recipes/gin-tonic.html, mojito.html, moscow-mule.html）'
+        ];
+
+        const quizCards = Array.from(document.querySelectorAll('.quiz-card'));
+        const quizScoreEl = document.getElementById('quiz-score');
+        const quizResetBtn = document.getElementById('quiz-reset');
+        const answersState = new Array(quizCards.length).fill(null);
+
+        const updateQuizScore = () => {
+          const answeredCount = answersState.filter((v) => v !== null).length;
+          const correctCount = answersState.filter((v) => v === true).length;
+          quizScoreEl.textContent = `已作答 ${answeredCount} / ${quizCards.length} · 答對 ${correctCount} 題`;
+        };
+
+        quizCards.forEach((card) => {
+          const qIndex = Number(card.dataset.question);
+          const correctIndex = Number(card.dataset.answer);
+          const optionBtns = Array.from(card.querySelectorAll('.quiz-option'));
+          const feedbackEl = card.querySelector('.quiz-feedback');
+
+          optionBtns.forEach((btn) => {
+            btn.addEventListener('click', () => {
+              if (answersState[qIndex] !== null) return;
+
+              const chosenIndex = Number(btn.dataset.option);
+              const isCorrect = chosenIndex === correctIndex;
+              answersState[qIndex] = isCorrect;
+
+              optionBtns.forEach((opt, idx) => {
+                opt.disabled = true;
+                if (idx === correctIndex) opt.classList.add('is-correct');
+                if (idx === chosenIndex && !isCorrect) opt.classList.add('is-wrong');
+              });
+
+              feedbackEl.classList.remove('correct', 'wrong');
+              feedbackEl.classList.add(isCorrect ? 'correct' : 'wrong');
+              feedbackEl.textContent = `${isCorrect ? '✔ 答對了！' : '✘ 答錯了。'}${explanations[qIndex]}`;
+              updateQuizScore();
+            });
+          });
+        });
+
+        quizResetBtn.addEventListener('click', () => {
+          answersState.fill(null);
+          quizCards.forEach((card) => {
+            const feedbackEl = card.querySelector('.quiz-feedback');
+            card.querySelectorAll('.quiz-option').forEach((opt) => {
+              opt.disabled = false;
+              opt.classList.remove('is-correct', 'is-wrong');
+            });
+            feedbackEl.classList.remove('correct', 'wrong');
+            feedbackEl.textContent = '請選擇答案查看 Wiki 原理解析。';
+          });
+          updateQuizScore();
+        });
+
+        buildOverview();
+        renderSlide(0);
+      });
+    </script>
+  </body>
+</html>
